@@ -16,3 +16,22 @@ const model = new OpenAI({
     model: 'gpt-3.5-turbo'
 });
 // console.log({ model });
+
+
+
+const promptFunc = async () => {
+    try {
+        /**
+         * Query the model with the given prompt
+         * @param {string} prompt - The prompt to query to the model
+         * @returns {Promise<string>} The model's response as a promise
+         */
+        const res = await model.call("How do you implement a linked list in TypeScript?");
+        console.log(res);
+    }
+    catch (err) {
+      console.error(err);
+    }
+};
+
+promptFunc();

@@ -1,7 +1,9 @@
 require('dotenv').config();
 const { OpenAI } = require('langchain/llms/openai');
+const inquirer = require('inquirer');
 
 const apiKey = process.env.OPENAI_API_KEY;
+const openAIModel = "gpt-3.5-turbo"
 
 /**
  * OpenAI constructor
@@ -13,20 +15,21 @@ const apiKey = process.env.OPENAI_API_KEY;
 const model = new OpenAI({ 
     openAIApiKey: process.env.OPENAI_API_KEY, 
     temperature: 0,
-    model: 'gpt-3.5-turbo'
+    model: openAIModel
 });
 // console.log({ model });
 
 
-
-const promptFunc = async () => {
+const callAPI = async (userPrompted) => {
+    const defaultQuestion = "How do you implement a linked list in TypeScript?";
+    const finalQuestion = userPrompted?userPrompted:defaultQuestion;
     try {
         /**
          * Query the model with the given prompt
          * @param {string} prompt - The prompt to query to the model
          * @returns {Promise<string>} The model's response as a promise
          */
-        const res = await model.call("How do you implement a linked list in TypeScript?");
+        const res = await model.call(finalQuestion);
         console.log(res);
     }
     catch (err) {
@@ -34,4 +37,19 @@ const promptFunc = async () => {
     }
 };
 
-promptFunc();
+//callAPI();
+
+const askCommandPrompt = () => {
+    inquirer.prompt([
+      {
+        type: 'input',
+        name: 'userPrompted',
+        message: `Ask ${openAIModel} a question:`,
+      },
+    ]).then(answers => {
+        const userPrompted = answers.userPrompted;
+        callAPI(userPrompted)
+    });
+  };
+  
+  askCommandPrompt();

@@ -20,6 +20,10 @@ const model = new OpenAI({
 // console.log({ model });
 
 
+const accrueCalls = (prompts) => {
+  // TODO: Iterate prompts array. Consider OOP
+}
+
 const callAPI = async (userPrompted) => {
     const defaultQuestion = "How do you implement a linked list in TypeScript?";
     const finalQuestion = userPrompted?userPrompted:defaultQuestion;
@@ -37,19 +41,63 @@ const callAPI = async (userPrompted) => {
     }
 };
 
-//callAPI();
 
-const askCommandPrompt = () => {
-    inquirer.prompt([
-      {
-        type: 'input',
-        name: 'userPrompted',
-        message: `Ask ${openAIModel} a question:`,
-      },
-    ]).then(answers => {
-        const userPrompted = answers.userPrompted;
-        callAPI(userPrompted)
-    });
-  };
+const askCommandPrompt = async() => {
+  return await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'manualPrompt',
+      message: `Ask ${openAIModel} a question:`,
+    },
+  ]).then(({manualPrompt}) => {
+      callAPI(manualPrompt)
+  });
+};
+
+const askMode = async() => {
+  const choices = [
+    'Manual prompt',
+    new inquirer.Separator('-- Tech Related --'), 
+    'Programming',
+    'UI UX',
+    new inquirer.Separator('-- Health Related --'), 
+    'DNA',
+    'Weight Training'
+  ];
   
-  askCommandPrompt();
+  return await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'selection',
+      message: 'Pick an option:',
+      choices
+    }
+  ])
+  .then(({selection}) => {
+    switch(selection) {
+      case "Manual prompt":
+        askCommandPrompt();
+        break;
+      case "Programming":
+        console.log("Coming soon!");
+        askMode();
+        break;
+      case "UI UX":
+        console.log("Coming soon!");
+        askMode();
+        break;
+      case "DNA":
+        console.log("Coming soon!");
+        askMode();
+        break;
+      case "Weight Training":
+        console.log("Coming soon!");
+        askMode();
+        break;
+    }
+  });
+} // askMode
+
+  
+
+  askMode();

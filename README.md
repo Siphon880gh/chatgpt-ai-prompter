@@ -9,6 +9,9 @@
 ## :page_facing_up: Description:
 By Weng Fei Fung. ChatGPT in the terminal. Soon will offer different environments like PHP webpage and NodeJS routes. There is  some code that I will flesh out to allow user to choose how creative vs how precise the AI can be. There are plans to have templates and prompt guide wizards as well.
 
+Coming soon:
+"Do I have DNA for?" - You would upload your saliva sample to 23AndMe. Then you can ask my AI for the genetic markers for different conditions and diseases and search your raw data at 23AndMe for thoes genetic markers. The prompts have already been engineered to minimize hallucinations and will let you know the significance by additionally giving you citings, magnitude of effect, and research consistency. But this just needs to be coded.
+
 ## :open_file_folder: Table of Contents:
 ---
 - [Description](#page_facing_up-description)
